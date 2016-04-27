@@ -2,7 +2,7 @@
 
 boolean running;
 
-public Player player; 
+Player player; 
 static ArrayList<Bullet> bullets;
 static ArrayList<Enemy> enemies;
 public ArrayList<PowerUp> powerUps;
