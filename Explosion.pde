@@ -1,38 +1,25 @@
-class Explosion
-{
-  /**** INSTANCE FIELDS ****/
-  private double x;
-  private double y;
-  private int r;
-  private int maxRadius;
-  /************************/
-
+class Explosion{
+  double x, y;
+  int r, maxRadius;
  
-  public Explosion(double x, double y, int r, int maxRadius) 
-  {
+  Explosion(double x, double y, int r, int maxRadius) {
     this.x = x;
     this.y = y;
     this.r = r;
     this.maxRadius = maxRadius;
   }
 
-
-  public boolean update()
-  {
+  boolean update(){
     r +=3;
     if(r >=maxRadius)
       return true;
     return false;
   }
 
-  public void drawExplosion()
-  {
-    color c = color(255);
-    fill(c);
+  void drawExplosion(){
+    fill(color(255, 150));
     strokeWeight(2);
-    noFill();
     ellipse((int)(x-r), (int)(y-r), 2*r, 2*r);
-    fill(c);
     strokeWeight(1);
   }
 }
