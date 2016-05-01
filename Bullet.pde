@@ -1,24 +1,24 @@
 class Bullet {
-  double x, y;
+  float x, y;
   int r;
-  double rad, speed;
+  float rad, speed;
   int power;
-  double dx, dy;
+  float dx, dy;
 
   color color1;
   
-  Bullet(double angle, int x, int y,int radius, int power){
+  Bullet(float angle, int x, int y,int radius, int power){
     this.x = x;
     this.y = y;
     r = radius;
     x-=r;
     y-=r;
 
-    rad = Math.toRadians(angle);
+    rad = (float)Math.toRadians(angle);
     this.power = power;
     speed= 10;
-    dx = Math.cos(rad)*speed;
-    dy = Math.sin(rad)*speed;
+    dx = cos(rad)*speed;
+    dy = sin(rad)*speed;
     
     color1 = color(255, 255, 0);
   }

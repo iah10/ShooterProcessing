@@ -95,16 +95,16 @@ void update() {
   //bullet-enemy collision
   for (int i = 0; i < bullets.size(); i++) {
     Bullet  b = bullets.get(i);
-    double bx = b.x;
-    double by = b.y;
-    double br = b.r;
+    float bx = b.x;
+    float by = b.y;
+    float br = b.r;
 
     for (int j=0; j < enemies.size(); j++){
       Enemy e = enemies.get(j);
-      double ex = e.x;
-      double ey = e.y;
-      double er = e.r;
-      double dist = dist((float)bx, (float)by, (float)ex, (float)ey);
+      float ex = e.x;
+      float ey = e.y;
+      float er = e.r;
+      float dist = dist((float)bx, (float)by, (float)ex, (float)ey);
       if (dist < br + er){
         e.hit(bullets.get(i).power);
         bullets.remove(i);
@@ -140,10 +140,10 @@ void update() {
   if (!player.recovering){
     for (int i = 0; i < enemies.size(); i++) {
       Enemy e = enemies.get(i);
-      double ex = e.x;
-      double ey = e.y;
-      double er = e.r;
-      double dist = dist((float)px, (float)py, (float)ex, (float)ey);
+      float ex = e.x;
+      float ey = e.y;
+      float er = e.r;
+      float dist = dist((float)px, (float)py, (float)ex, (float)ey);
       if (dist < pr + er && player.invincibleTimer ==0)
         player.loseLife();
       else if (dist < pr + er && player.invincibleTimer !=0)
@@ -154,31 +154,31 @@ void update() {
   //player-power-up collision
   for (int i = 0; i < powerUps.size(); i++) {
     PowerUp e = powerUps.get(i);
-    double ex = e.x;
-    double ey = e.y;
-    double er = e.r;
-    double dist = dist((float)px, (float)py, (float)(ex+er), (float)(ey+er));
+    float ex = e.x;
+    float ey = e.y;
+    float er = e.r;
+    float dist = dist((float)px, (float)py, (float)(ex+er), (float)(ey+er));
     if (dist < pr + er){
       if(!powerup.isPlaying()){ powerup.rewind(); powerup.play(); }
       switch (e.type) {
       case 1:  // +life
         player.gainLife();
-        texts.add(new Text(player.x-30, player.y-30, 200, "Extra Life"));
+        texts.add(new Text(player.x-30, player.y-30, "Extra Life"));
         break;
       case 2:  // +1 power
         player.increasePower(1);
-        texts.add(new Text(player.x-30, player.y-30, 200, "Power"));
+        texts.add(new Text(player.x-30, player.y-30, "Power"));
         break;
       case 3:  // +2 power
         player.increasePower(2);
-        texts.add(new Text(player.x-30, player.y-30, 200, "Double Power"));
+        texts.add(new Text(player.x-30, player.y-30, "float Power"));
         break;
       case 4:  // Slow
         slowDownTimer = System.nanoTime();
         slow = true;
         for (int j = 0; j < enemies.size(); j++)
           enemies.get(j).setSlow(true);
-        texts.add(new Text(player.x-30, player.y-30, 200, "Slow Down"));
+        texts.add(new Text(player.x-30, player.y-30, "Slow Down"));
         break;
       case 5:  //bullet power ups
         bulletPowerTimer = System.nanoTime();
@@ -186,18 +186,18 @@ void update() {
           bullets.get(j).power = 3;
           bullets.get(j).r = 3;
         }
-        texts.add(new Text(player.x-30, player.y-30, 200, "Bullet Power"));
+        texts.add(new Text(player.x-30, player.y-30, "Bullet Power"));
         break;
       case 6: // invincible
         player.invincible();
-        texts.add(new Text(player.x-30, player.y-30, 200, "Invincible"));
+        texts.add(new Text(player.x-30, player.y-30, "Invincible"));
         break;
       case 7:  //kill all
         for (int j = 0; j < enemies.size(); j++)
           enemies.get(j).hit((int) enemies.get(j).health);
         ExplosionTimer = System.nanoTime();
         explodeIn = true;
-        texts.add(new Text(player.x-30, player.y-30, 200, "Boom"));
+        texts.add(new Text(player.x-30, player.y-30, "Boom"));
         break;
       }
       powerUps.remove(i);
@@ -281,7 +281,7 @@ void drawState() {
     drawS(bulletPowerTimerDiff, bulletPowerLength, color(0, 100, 70), color(255), "BULLET-POWER MODE");
   }
   if (explodeIn){
-    int alpha  = (int)(255*Math.sin(3.14 * explosionTimerDiff/ explosionLength));  //for transparency
+    int alpha  = (int)(255*sin(3.14 * explosionTimerDiff/ explosionLength));  //for transparency
     alpha = constrain(alpha, 0, 255);
     fill(color(255, 255, 255, alpha));
     textFont( createFont("Century Gothic", 28, true));
@@ -305,7 +305,7 @@ void drawState() {
   if (waveStartTimer != 0){
     textFont(createFont("Century Gothic", 18, true));
     String s = "-W A V E " + waveNumber + "  -";
-    int alpha  = (int)(255*Math.sin(3.14 * waveStartTimerDiff / waveDelay));  //for transparency
+    int alpha  = (int)(255*sin(3.14 * waveStartTimerDiff / waveDelay));  //for transparency
     alpha = constrain(alpha, 0, 255);
     fill(color(255, alpha));
     textAlign(CENTER, TOP);
@@ -358,7 +358,7 @@ void drawMeter(color c, int x, int y, int w1, int h1, int w2){
 }
 
 void drawS(long a, int b, color c1, color c2, String str){
-  int alpha  = (int)(255*Math.sin(3.14 * a/b));
+  int alpha  = (int)(255*sin(3.14 * a/b));
   alpha = constrain(alpha, 0, 255);
   fill(color(red(c1), green(c1), blue(c1), alpha));
   rect(0, 0, width, height);
@@ -370,7 +370,7 @@ void drawS(long a, int b, color c1, color c2, String str){
 }
 
 void powerUp(Enemy e) {
-  double rand = Math.random();
+  float rand = random(1);
   if (rand < 0.005) //kills all enemies
     powerUps.add(new PowerUp(e.x, e.y, 7));
   else if (rand < 0.008) //+1 life

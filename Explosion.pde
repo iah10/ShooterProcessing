@@ -1,8 +1,8 @@
 class Explosion{
-  double x, y;
+  float x, y;
   int r, maxRadius;
  
-  Explosion(double x, double y, int r, int maxRadius) {
+  Explosion(float x, float y, int r, int maxRadius) {
     this.x = x;
     this.y = y;
     this.r = r;

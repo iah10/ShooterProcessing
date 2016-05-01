@@ -1,5 +1,5 @@
 class Enemy {
-  double x, y, dx, dy, rad, speed;
+  float x, y, dx, dy, rad, speed;
 
   int r, health, type, rank;
   color color1;
@@ -50,14 +50,14 @@ class Enemy {
     x = random(1) * width/2 + width /4;
     y = -r;
 
-    double angle = random(1) * 140 +20;
-    rad = Math.toRadians(angle);
+    float angle = random(1) * 140 +20;
+    rad = (float)Math.toRadians(angle);
 
     dx = cos((float)rad) * speed;
     dy = sin((float)rad) * speed;
   }
 
-  void setEnemyStats(double speed, int r, int health){
+  void setEnemyStats(float speed, int r, int health){
     this.speed = speed;
     this.r = r;
     this.health = health;
@@ -93,14 +93,14 @@ class Enemy {
     Enemy e = new Enemy(type, rank-1, slow);
     e.x= this.x;
     e.y = this.y;
-    double angle = 0;
+    float angle = 0;
 
     if (!ready) //so that when a big enemy explodes, its children go downwards
-      angle = Math.random()*140 +20;
+      angle = random(1)*140 +20;
     else 
-      angle = Math.random() * 360;
+      angle = random(1) * 360;
 
-    e.rad = Math.toRadians(angle);
+    e.rad = (float)Math.toRadians(angle);
     TheGame.enemies.add(e);
   }
 

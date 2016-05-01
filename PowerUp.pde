@@ -1,9 +1,9 @@
 class PowerUp {
-  double x, y;
+  float x, y;
   int r, type;
   color color1, color2;
 
-  PowerUp(double x, double y, int type) {
+  PowerUp(float x, float y, int type) {
     this.x = x;
     this.y = y;
     this.type = type;
